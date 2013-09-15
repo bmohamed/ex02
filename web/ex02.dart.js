@@ -57,8 +57,6 @@ $$.Closure$identical = {"": "Closure;call$2,$name"};
 
 $$.Closure$main = {"": "Closure;call$0,$name"};
 
-$$.Closure$reverseText = {"": "Closure;call$1,$name"};
-
 (function (reflectionData) {
   function map(x){x={x:x};delete x.x;return x}
   if (!init.libraries) init.libraries = [];
@@ -4208,6 +4206,8 @@ AnchorElement: {"": "HtmlElement;",
   }
 },
 
+ButtonElement: {"": "HtmlElement;value%"},
+
 DomException: {"": "Interceptor;",
   toString$0: function(receiver) {
     return receiver.toString();
@@ -4231,6 +4231,12 @@ EventTarget: {"": "Interceptor;",
 
 FormElement: {"": "HtmlElement;length="},
 
+InputElement: {"": "HtmlElement;value%"},
+
+LIElement: {"": "HtmlElement;value%"},
+
+MeterElement: {"": "HtmlElement;value%"},
+
 Node: {"": "EventTarget;",
   toString$0: function(receiver) {
     var t1 = receiver.nodeValue;
@@ -4238,7 +4244,17 @@ Node: {"": "EventTarget;",
   }
 },
 
-SelectElement: {"": "HtmlElement;length="},
+OptionElement: {"": "HtmlElement;value%"},
+
+OutputElement: {"": "HtmlElement;value%"},
+
+ParamElement: {"": "HtmlElement;value%"},
+
+ProgressElement: {"": "HtmlElement;value%"},
+
+SelectElement: {"": "HtmlElement;length=,value%"},
+
+TextAreaElement: {"": "HtmlElement;value%"},
 
 Window: {"": "EventTarget;",
   toString$0: function(receiver) {
@@ -4343,24 +4359,440 @@ Uint8List: {"": "TypedData_ListMixin_FixedLengthListMixin;",
   $isJavaScriptIndexingBehavior: true
 }}],
 ["ex02.dart", "ex02.dart", , {
-main: function() {
-  var t1 = document.querySelector("#sample_text_id");
-  t1.textContent = "Click me!";
-  t1.get$onClick;
-  C.EventStreamProvider_click.forElement$2$useCapture;
-  t1 = new $._ElementEventStreamImpl(t1, C.EventStreamProvider_click._eventType, false);
-  new $._EventStreamSubscription(0, t1._target, t1._eventType, $.reverseText$closure, t1._useCapture)._tryResume$0();
+NombreDOccurenceParCaractere: function(lettre, text) {
+  var t1, count, i;
+  if (typeof text !== "string")
+    return $.NombreDOccurenceParCaractere$bailout(1, lettre, text);
+  for (t1 = text.length, count = 0, i = 0; i < t1; ++i)
+    if (text[i] === lettre)
+      ++count;
+  return C.JSInt_methods.toString$0(count);
 },
 
-reverseText: function($event) {
-  var text, buffer, i, t1;
-  text = document.querySelector("#sample_text_id").textContent;
-  buffer = $.StringBuffer$("");
-  for (i = text.length - 1; i >= 0; --i) {
-    t1 = text[i];
-    buffer._contents = buffer._contents + t1;
+NombreDOccurenceParCaractere$bailout: function(state0, lettre, text) {
+  var t1, count, i;
+  for (t1 = $.getInterceptor$asx(text), count = 0, i = 0; i < t1.get$length(text); ++i)
+    if (t1.$index(text, i) === lettre)
+      ++count;
+  return C.JSInt_methods.toString$0(count);
+},
+
+NombreDOccurenceToutLesCaracteres: function(text) {
+  var AlphabetMap, t1, i, t2;
+  if (typeof text !== "string")
+    return $.NombreDOccurenceToutLesCaracteres$bailout(1, text);
+  AlphabetMap = new $.LinkedHashMap(0, null, null, null, null, null, 0);
+  for (t1 = text.length, i = 0; i < t1; ++i) {
+    if (!AlphabetMap.containsKey$1(text[i]))
+      AlphabetMap.$indexSet(AlphabetMap, text[i], 0);
+    t2 = text[i];
+    AlphabetMap.$indexSet(AlphabetMap, t2, $.$add$ns(AlphabetMap.$index(AlphabetMap, t2), 1));
   }
-  document.querySelector("#sample_text_id").textContent = buffer._contents;
+  AlphabetMap.forEach$1(AlphabetMap, new $.NombreDOccurenceToutLesCaracteres_closure(AlphabetMap));
+  return $.List_List$from(AlphabetMap.get$values(AlphabetMap), true);
+},
+
+NombreDOccurenceToutLesCaracteres$bailout: function(state0, text) {
+  var AlphabetMap, t1, i;
+  AlphabetMap = new $.LinkedHashMap(0, null, null, null, null, null, 0);
+  for (t1 = $.getInterceptor$asx(text), i = 0; i < t1.get$length(text); ++i) {
+    if (!AlphabetMap.containsKey$1(t1.$index(text, i)))
+      AlphabetMap.$indexSet(AlphabetMap, t1.$index(text, i), 0);
+    AlphabetMap.$indexSet(AlphabetMap, t1.$index(text, i), $.$add$ns(AlphabetMap.$index(AlphabetMap, t1.$index(text, i)), 1));
+  }
+  AlphabetMap.forEach$1(AlphabetMap, new $.NombreDOccurenceToutLesCaracteres_closure(AlphabetMap));
+  return $.List_List$from(AlphabetMap.get$values(AlphabetMap), true);
+},
+
+main: function() {
+  var textArea, wordsArea, resultArea, wordsButton, clearButton, AFrequence, BFrequence, CFrequence, DFrequence, EFrequence, FFrequence, GFrequence, HFrequence, IFrequence, JFrequence, KFrequence, LFrequence, MFrequence, NFrequence, OFrequence, PFrequence, QFrequence, RFrequence, SFrequence, TFrequence, UFrequence, VFrequence, WFrequence, XFrequence, YFrequence, ZFrequence, t1, t2;
+  textArea = document.querySelector("#text");
+  wordsArea = document.querySelector("#words");
+  resultArea = document.querySelector("#result");
+  wordsButton = document.querySelector("#frequency");
+  clearButton = document.querySelector("#clear");
+  AFrequence = document.querySelector("#a");
+  BFrequence = document.querySelector("#b");
+  CFrequence = document.querySelector("#c");
+  DFrequence = document.querySelector("#d");
+  EFrequence = document.querySelector("#e");
+  FFrequence = document.querySelector("#f");
+  GFrequence = document.querySelector("#g");
+  HFrequence = document.querySelector("#h");
+  IFrequence = document.querySelector("#i");
+  JFrequence = document.querySelector("#j");
+  KFrequence = document.querySelector("#k");
+  LFrequence = document.querySelector("#l");
+  MFrequence = document.querySelector("#m");
+  NFrequence = document.querySelector("#n");
+  OFrequence = document.querySelector("#o");
+  PFrequence = document.querySelector("#p");
+  QFrequence = document.querySelector("#q");
+  RFrequence = document.querySelector("#r");
+  SFrequence = document.querySelector("#s");
+  TFrequence = document.querySelector("#t");
+  UFrequence = document.querySelector("#u");
+  VFrequence = document.querySelector("#v");
+  WFrequence = document.querySelector("#w");
+  XFrequence = document.querySelector("#x");
+  YFrequence = document.querySelector("#y");
+  ZFrequence = document.querySelector("#z");
+  wordsButton.get$onClick;
+  C.EventStreamProvider_click.forElement$2$useCapture;
+  t1 = C.EventStreamProvider_click._eventType;
+  t2 = new $._ElementEventStreamImpl(wordsButton, t1, false);
+  new $._EventStreamSubscription(0, t2._target, t2._eventType, new $.main_closure(textArea, wordsArea), t2._useCapture)._tryResume$0();
+  clearButton.get$onClick;
+  t2 = new $._ElementEventStreamImpl(clearButton, t1, false);
+  new $._EventStreamSubscription(0, t2._target, t2._eventType, new $.main_closure0(textArea, wordsArea), t2._useCapture)._tryResume$0();
+  AFrequence.get$onClick;
+  t2 = new $._ElementEventStreamImpl(AFrequence, t1, false);
+  new $._EventStreamSubscription(0, t2._target, t2._eventType, new $.main_closure1(textArea, resultArea, AFrequence), t2._useCapture)._tryResume$0();
+  BFrequence.get$onClick;
+  t2 = new $._ElementEventStreamImpl(BFrequence, t1, false);
+  new $._EventStreamSubscription(0, t2._target, t2._eventType, new $.main_closure2(textArea, resultArea, BFrequence), t2._useCapture)._tryResume$0();
+  CFrequence.get$onClick;
+  t2 = new $._ElementEventStreamImpl(CFrequence, t1, false);
+  new $._EventStreamSubscription(0, t2._target, t2._eventType, new $.main_closure3(textArea, resultArea, CFrequence), t2._useCapture)._tryResume$0();
+  DFrequence.get$onClick;
+  t2 = new $._ElementEventStreamImpl(DFrequence, t1, false);
+  new $._EventStreamSubscription(0, t2._target, t2._eventType, new $.main_closure4(textArea, resultArea, DFrequence), t2._useCapture)._tryResume$0();
+  EFrequence.get$onClick;
+  t2 = new $._ElementEventStreamImpl(EFrequence, t1, false);
+  new $._EventStreamSubscription(0, t2._target, t2._eventType, new $.main_closure5(textArea, resultArea, EFrequence), t2._useCapture)._tryResume$0();
+  FFrequence.get$onClick;
+  t2 = new $._ElementEventStreamImpl(FFrequence, t1, false);
+  new $._EventStreamSubscription(0, t2._target, t2._eventType, new $.main_closure6(textArea, resultArea, FFrequence), t2._useCapture)._tryResume$0();
+  GFrequence.get$onClick;
+  t2 = new $._ElementEventStreamImpl(GFrequence, t1, false);
+  new $._EventStreamSubscription(0, t2._target, t2._eventType, new $.main_closure7(textArea, resultArea, GFrequence), t2._useCapture)._tryResume$0();
+  HFrequence.get$onClick;
+  t2 = new $._ElementEventStreamImpl(HFrequence, t1, false);
+  new $._EventStreamSubscription(0, t2._target, t2._eventType, new $.main_closure8(textArea, resultArea, HFrequence), t2._useCapture)._tryResume$0();
+  IFrequence.get$onClick;
+  t2 = new $._ElementEventStreamImpl(IFrequence, t1, false);
+  new $._EventStreamSubscription(0, t2._target, t2._eventType, new $.main_closure9(textArea, resultArea, IFrequence), t2._useCapture)._tryResume$0();
+  JFrequence.get$onClick;
+  t2 = new $._ElementEventStreamImpl(JFrequence, t1, false);
+  new $._EventStreamSubscription(0, t2._target, t2._eventType, new $.main_closure10(textArea, resultArea, JFrequence), t2._useCapture)._tryResume$0();
+  KFrequence.get$onClick;
+  t2 = new $._ElementEventStreamImpl(KFrequence, t1, false);
+  new $._EventStreamSubscription(0, t2._target, t2._eventType, new $.main_closure11(textArea, resultArea, KFrequence), t2._useCapture)._tryResume$0();
+  LFrequence.get$onClick;
+  t2 = new $._ElementEventStreamImpl(LFrequence, t1, false);
+  new $._EventStreamSubscription(0, t2._target, t2._eventType, new $.main_closure12(textArea, resultArea, LFrequence), t2._useCapture)._tryResume$0();
+  MFrequence.get$onClick;
+  t2 = new $._ElementEventStreamImpl(MFrequence, t1, false);
+  new $._EventStreamSubscription(0, t2._target, t2._eventType, new $.main_closure13(textArea, resultArea, MFrequence), t2._useCapture)._tryResume$0();
+  NFrequence.get$onClick;
+  t2 = new $._ElementEventStreamImpl(NFrequence, t1, false);
+  new $._EventStreamSubscription(0, t2._target, t2._eventType, new $.main_closure14(textArea, resultArea, NFrequence), t2._useCapture)._tryResume$0();
+  OFrequence.get$onClick;
+  t2 = new $._ElementEventStreamImpl(OFrequence, t1, false);
+  new $._EventStreamSubscription(0, t2._target, t2._eventType, new $.main_closure15(textArea, resultArea, OFrequence), t2._useCapture)._tryResume$0();
+  PFrequence.get$onClick;
+  t2 = new $._ElementEventStreamImpl(PFrequence, t1, false);
+  new $._EventStreamSubscription(0, t2._target, t2._eventType, new $.main_closure16(textArea, resultArea, PFrequence), t2._useCapture)._tryResume$0();
+  QFrequence.get$onClick;
+  t2 = new $._ElementEventStreamImpl(QFrequence, t1, false);
+  new $._EventStreamSubscription(0, t2._target, t2._eventType, new $.main_closure17(textArea, resultArea, QFrequence), t2._useCapture)._tryResume$0();
+  RFrequence.get$onClick;
+  t2 = new $._ElementEventStreamImpl(RFrequence, t1, false);
+  new $._EventStreamSubscription(0, t2._target, t2._eventType, new $.main_closure18(textArea, resultArea, RFrequence), t2._useCapture)._tryResume$0();
+  SFrequence.get$onClick;
+  t2 = new $._ElementEventStreamImpl(SFrequence, t1, false);
+  new $._EventStreamSubscription(0, t2._target, t2._eventType, new $.main_closure19(textArea, resultArea, SFrequence), t2._useCapture)._tryResume$0();
+  TFrequence.get$onClick;
+  t2 = new $._ElementEventStreamImpl(TFrequence, t1, false);
+  new $._EventStreamSubscription(0, t2._target, t2._eventType, new $.main_closure20(textArea, resultArea, TFrequence), t2._useCapture)._tryResume$0();
+  UFrequence.get$onClick;
+  t2 = new $._ElementEventStreamImpl(UFrequence, t1, false);
+  new $._EventStreamSubscription(0, t2._target, t2._eventType, new $.main_closure21(textArea, resultArea, UFrequence), t2._useCapture)._tryResume$0();
+  VFrequence.get$onClick;
+  t2 = new $._ElementEventStreamImpl(VFrequence, t1, false);
+  new $._EventStreamSubscription(0, t2._target, t2._eventType, new $.main_closure22(textArea, resultArea, VFrequence), t2._useCapture)._tryResume$0();
+  WFrequence.get$onClick;
+  t2 = new $._ElementEventStreamImpl(WFrequence, t1, false);
+  new $._EventStreamSubscription(0, t2._target, t2._eventType, new $.main_closure23(textArea, resultArea, WFrequence), t2._useCapture)._tryResume$0();
+  XFrequence.get$onClick;
+  t2 = new $._ElementEventStreamImpl(XFrequence, t1, false);
+  new $._EventStreamSubscription(0, t2._target, t2._eventType, new $.main_closure24(textArea, resultArea, XFrequence), t2._useCapture)._tryResume$0();
+  YFrequence.get$onClick;
+  t2 = new $._ElementEventStreamImpl(YFrequence, t1, false);
+  new $._EventStreamSubscription(0, t2._target, t2._eventType, new $.main_closure25(textArea, resultArea, YFrequence), t2._useCapture)._tryResume$0();
+  ZFrequence.get$onClick;
+  t1 = new $._ElementEventStreamImpl(ZFrequence, t1, false);
+  new $._EventStreamSubscription(0, t1._target, t1._eventType, new $.main_closure26(textArea, resultArea, ZFrequence), t1._useCapture)._tryResume$0();
+},
+
+NombreDOccurenceToutLesCaracteres_closure: {"": "Closure;AlphabetMap_0",
+  call$2: function(k, v) {
+    var t1, t2;
+    t1 = this.AlphabetMap_0;
+    t2 = $.S(k) + ": " + $.S($.toString$0(v));
+    t1.$indexSet(t1, k, t2);
+    return t2;
+  }
+},
+
+main_closure: {"": "Closure;textArea_0,wordsArea_1",
+  call$1: function(e) {
+    var t1 = this.wordsArea_1;
+    $.set$value$x(t1, "Lettre: frequency \n");
+    $.IterableMixinWorkaround_forEach($.NombreDOccurenceToutLesCaracteres($.get$value$x(this.textArea_0)), new $.main__closure(t1));
+  }
+},
+
+main__closure: {"": "Closure;wordsArea_2",
+  call$1: function(word) {
+    var t1, t2, t3;
+    t1 = this.wordsArea_2;
+    t2 = $.getInterceptor$x(t1);
+    t3 = $.S(t2.get$value(t1)) + " \n" + $.S(word);
+    t2.set$value(t1, t3);
+    return t3;
+  }
+},
+
+main_closure0: {"": "Closure;textArea_3,wordsArea_4",
+  call$1: function(e) {
+    $.set$value$x(this.textArea_3, "");
+    $.set$value$x(this.wordsArea_4, "");
+  }
+},
+
+main_closure1: {"": "Closure;textArea_5,resultArea_6,AFrequence_7",
+  call$1: function(e) {
+    var text, t1;
+    text = $.get$value$x(this.textArea_5);
+    t1 = this.AFrequence_7;
+    $.set$value$x(this.resultArea_6, "La lettre " + t1.id + " apparait " + $.NombreDOccurenceParCaractere(t1.id, text) + " fois. ");
+  }
+},
+
+main_closure2: {"": "Closure;textArea_8,resultArea_9,BFrequence_10",
+  call$1: function(e) {
+    var text, t1;
+    text = $.get$value$x(this.textArea_8);
+    t1 = this.BFrequence_10;
+    $.set$value$x(this.resultArea_9, "La lettre " + t1.id + " apparait " + $.NombreDOccurenceParCaractere(t1.id, text) + " fois. ");
+  }
+},
+
+main_closure3: {"": "Closure;textArea_11,resultArea_12,CFrequence_13",
+  call$1: function(e) {
+    var text, t1;
+    text = $.get$value$x(this.textArea_11);
+    t1 = this.CFrequence_13;
+    $.set$value$x(this.resultArea_12, "La lettre " + t1.id + " apparait " + $.NombreDOccurenceParCaractere(t1.id, text) + " fois. ");
+  }
+},
+
+main_closure4: {"": "Closure;textArea_14,resultArea_15,DFrequence_16",
+  call$1: function(e) {
+    var text, t1;
+    text = $.get$value$x(this.textArea_14);
+    t1 = this.DFrequence_16;
+    $.set$value$x(this.resultArea_15, "La lettre " + t1.id + " apparait " + $.NombreDOccurenceParCaractere(t1.id, text) + " fois. ");
+  }
+},
+
+main_closure5: {"": "Closure;textArea_17,resultArea_18,EFrequence_19",
+  call$1: function(e) {
+    var text, t1;
+    text = $.get$value$x(this.textArea_17);
+    t1 = this.EFrequence_19;
+    $.set$value$x(this.resultArea_18, "La lettre " + t1.id + " apparait " + $.NombreDOccurenceParCaractere(t1.id, text) + " fois. ");
+  }
+},
+
+main_closure6: {"": "Closure;textArea_20,resultArea_21,FFrequence_22",
+  call$1: function(e) {
+    var text, t1;
+    text = $.get$value$x(this.textArea_20);
+    t1 = this.FFrequence_22;
+    $.set$value$x(this.resultArea_21, "La lettre " + t1.id + " apparait " + $.NombreDOccurenceParCaractere(t1.id, text) + " fois. ");
+  }
+},
+
+main_closure7: {"": "Closure;textArea_23,resultArea_24,GFrequence_25",
+  call$1: function(e) {
+    var text, t1;
+    text = $.get$value$x(this.textArea_23);
+    t1 = this.GFrequence_25;
+    $.set$value$x(this.resultArea_24, "La lettre " + t1.id + " apparait " + $.NombreDOccurenceParCaractere(t1.id, text) + " fois. ");
+  }
+},
+
+main_closure8: {"": "Closure;textArea_26,resultArea_27,HFrequence_28",
+  call$1: function(e) {
+    var text, t1;
+    text = $.get$value$x(this.textArea_26);
+    t1 = this.HFrequence_28;
+    $.set$value$x(this.resultArea_27, "La lettre " + t1.id + " apparait " + $.NombreDOccurenceParCaractere(t1.id, text) + " fois. ");
+  }
+},
+
+main_closure9: {"": "Closure;textArea_29,resultArea_30,IFrequence_31",
+  call$1: function(e) {
+    var text, t1;
+    text = $.get$value$x(this.textArea_29);
+    t1 = this.IFrequence_31;
+    $.set$value$x(this.resultArea_30, "La lettre " + t1.id + " apparait " + $.NombreDOccurenceParCaractere(t1.id, text) + " fois. ");
+  }
+},
+
+main_closure10: {"": "Closure;textArea_32,resultArea_33,JFrequence_34",
+  call$1: function(e) {
+    var text, t1;
+    text = $.get$value$x(this.textArea_32);
+    t1 = this.JFrequence_34;
+    $.set$value$x(this.resultArea_33, "La lettre " + t1.id + " apparait " + $.NombreDOccurenceParCaractere(t1.id, text) + " fois. ");
+  }
+},
+
+main_closure11: {"": "Closure;textArea_35,resultArea_36,KFrequence_37",
+  call$1: function(e) {
+    var text, t1;
+    text = $.get$value$x(this.textArea_35);
+    t1 = this.KFrequence_37;
+    $.set$value$x(this.resultArea_36, "La lettre " + t1.id + " apparait " + $.NombreDOccurenceParCaractere(t1.id, text) + " fois. ");
+  }
+},
+
+main_closure12: {"": "Closure;textArea_38,resultArea_39,LFrequence_40",
+  call$1: function(e) {
+    var text, t1;
+    text = $.get$value$x(this.textArea_38);
+    t1 = this.LFrequence_40;
+    $.set$value$x(this.resultArea_39, "La lettre " + t1.id + " apparait " + $.NombreDOccurenceParCaractere(t1.id, text) + " fois. ");
+  }
+},
+
+main_closure13: {"": "Closure;textArea_41,resultArea_42,MFrequence_43",
+  call$1: function(e) {
+    var text, t1;
+    text = $.get$value$x(this.textArea_41);
+    t1 = this.MFrequence_43;
+    $.set$value$x(this.resultArea_42, "La lettre " + t1.id + " apparait " + $.NombreDOccurenceParCaractere(t1.id, text) + " fois. ");
+  }
+},
+
+main_closure14: {"": "Closure;textArea_44,resultArea_45,NFrequence_46",
+  call$1: function(e) {
+    var text, t1;
+    text = $.get$value$x(this.textArea_44);
+    t1 = this.NFrequence_46;
+    $.set$value$x(this.resultArea_45, "La lettre " + t1.id + " apparait " + $.NombreDOccurenceParCaractere(t1.id, text) + " fois. ");
+  }
+},
+
+main_closure15: {"": "Closure;textArea_47,resultArea_48,OFrequence_49",
+  call$1: function(e) {
+    var text, t1;
+    text = $.get$value$x(this.textArea_47);
+    t1 = this.OFrequence_49;
+    $.set$value$x(this.resultArea_48, "La lettre " + t1.id + " apparait " + $.NombreDOccurenceParCaractere(t1.id, text) + " fois. ");
+  }
+},
+
+main_closure16: {"": "Closure;textArea_50,resultArea_51,PFrequence_52",
+  call$1: function(e) {
+    var text, t1;
+    text = $.get$value$x(this.textArea_50);
+    t1 = this.PFrequence_52;
+    $.set$value$x(this.resultArea_51, "La lettre " + t1.id + " apparait " + $.NombreDOccurenceParCaractere(t1.id, text) + " fois. ");
+  }
+},
+
+main_closure17: {"": "Closure;textArea_53,resultArea_54,QFrequence_55",
+  call$1: function(e) {
+    var text, t1;
+    text = $.get$value$x(this.textArea_53);
+    t1 = this.QFrequence_55;
+    $.set$value$x(this.resultArea_54, "La lettre " + t1.id + " apparait " + $.NombreDOccurenceParCaractere(t1.id, text) + " fois. ");
+  }
+},
+
+main_closure18: {"": "Closure;textArea_56,resultArea_57,RFrequence_58",
+  call$1: function(e) {
+    var text, t1;
+    text = $.get$value$x(this.textArea_56);
+    t1 = this.RFrequence_58;
+    $.set$value$x(this.resultArea_57, "La lettre " + t1.id + " apparait " + $.NombreDOccurenceParCaractere(t1.id, text) + " fois. ");
+  }
+},
+
+main_closure19: {"": "Closure;textArea_59,resultArea_60,SFrequence_61",
+  call$1: function(e) {
+    var text, t1;
+    text = $.get$value$x(this.textArea_59);
+    t1 = this.SFrequence_61;
+    $.set$value$x(this.resultArea_60, "La lettre " + t1.id + " apparait " + $.NombreDOccurenceParCaractere(t1.id, text) + " fois. ");
+  }
+},
+
+main_closure20: {"": "Closure;textArea_62,resultArea_63,TFrequence_64",
+  call$1: function(e) {
+    var text, t1;
+    text = $.get$value$x(this.textArea_62);
+    t1 = this.TFrequence_64;
+    $.set$value$x(this.resultArea_63, "La lettre " + t1.id + " apparait " + $.NombreDOccurenceParCaractere(t1.id, text) + " fois. ");
+  }
+},
+
+main_closure21: {"": "Closure;textArea_65,resultArea_66,UFrequence_67",
+  call$1: function(e) {
+    var text, t1;
+    text = $.get$value$x(this.textArea_65);
+    t1 = this.UFrequence_67;
+    $.set$value$x(this.resultArea_66, "La lettre " + t1.id + " apparait " + $.NombreDOccurenceParCaractere(t1.id, text) + " fois. ");
+  }
+},
+
+main_closure22: {"": "Closure;textArea_68,resultArea_69,VFrequence_70",
+  call$1: function(e) {
+    var text, t1;
+    text = $.get$value$x(this.textArea_68);
+    t1 = this.VFrequence_70;
+    $.set$value$x(this.resultArea_69, "La lettre " + t1.id + " apparait " + $.NombreDOccurenceParCaractere(t1.id, text) + " fois. ");
+  }
+},
+
+main_closure23: {"": "Closure;textArea_71,resultArea_72,WFrequence_73",
+  call$1: function(e) {
+    var text, t1;
+    text = $.get$value$x(this.textArea_71);
+    t1 = this.WFrequence_73;
+    $.set$value$x(this.resultArea_72, "La lettre " + t1.id + " apparait " + $.NombreDOccurenceParCaractere(t1.id, text) + " fois. ");
+  }
+},
+
+main_closure24: {"": "Closure;textArea_74,resultArea_75,XFrequence_76",
+  call$1: function(e) {
+    var text, t1;
+    text = $.get$value$x(this.textArea_74);
+    t1 = this.XFrequence_76;
+    $.set$value$x(this.resultArea_75, "La lettre " + t1.id + " apparait " + $.NombreDOccurenceParCaractere(t1.id, text) + " fois. ");
+  }
+},
+
+main_closure25: {"": "Closure;textArea_77,resultArea_78,YFrequence_79",
+  call$1: function(e) {
+    var text, t1;
+    text = $.get$value$x(this.textArea_77);
+    t1 = this.YFrequence_79;
+    $.set$value$x(this.resultArea_78, "La lettre " + t1.id + " apparait " + $.NombreDOccurenceParCaractere(t1.id, text) + " fois. ");
+  }
+},
+
+main_closure26: {"": "Closure;textArea_80,resultArea_81,ZFrequence_82",
+  call$1: function(e) {
+    var text, t1;
+    text = $.get$value$x(this.textArea_80);
+    t1 = this.ZFrequence_82;
+    $.set$value$x(this.resultArea_81, "La lettre " + t1.id + " apparait " + $.NombreDOccurenceParCaractere(t1.id, text) + " fois. ");
+  }
 }},
 1],
 ]);
@@ -4382,7 +4814,6 @@ $._defaultEquals$closure = new $.Closure$_defaultEquals($._defaultEquals, "_defa
 $._defaultHashCode$closure = new $.Closure$_defaultHashCode($._defaultHashCode, "_defaultHashCode$closure");
 $.identical$closure = new $.Closure$identical($.identical, "identical$closure");
 $.main$closure = new $.Closure$main($.main, "main$closure");
-$.reverseText$closure = new $.Closure$reverseText($.reverseText, "reverseText$closure");
 $.getInterceptor = function(receiver) {
   if (typeof receiver == "number") {
     if (Math.floor(receiver) == receiver)
@@ -4553,6 +4984,12 @@ $.get$hashCode$ = function(receiver) {
 $.get$iterator$ax = function(receiver) {
   return $.getInterceptor$ax(receiver).get$iterator(receiver);
 };
+$.get$value$x = function(receiver) {
+  return $.getInterceptor$x(receiver).get$value(receiver);
+};
+$.set$value$x = function(receiver, value) {
+  return $.getInterceptor$x(receiver).set$value(receiver, value);
+};
 $.toString$0 = function(receiver) {
   return $.getInterceptor(receiver).toString$0(receiver);
 };
@@ -4629,11 +5066,13 @@ Isolate.$lazy($, "_toStringList", "Maps__toStringList", "get$Maps__toStringList"
 // Native classes
 $.defineNativeMethods("AudioProcessingEvent|AutocompleteErrorEvent|BeforeLoadEvent|CSSFontFaceLoadEvent|CloseEvent|CompositionEvent|CustomEvent|DOMError|DeviceMotionEvent|DeviceOrientationEvent|DragEvent|ErrorEvent|Event|FileError|FocusEvent|HashChangeEvent|IDBVersionChangeEvent|KeyboardEvent|MIDIConnectionEvent|MIDIMessageEvent|MSPointerEvent|MediaError|MediaKeyError|MediaKeyEvent|MediaKeyMessageEvent|MediaKeyNeededEvent|MediaStreamEvent|MediaStreamTrackEvent|MessageEvent|MouseEvent|MouseScrollEvent|MouseWheelEvent|MutationEvent|Navigator|NavigatorUserMediaError|OfflineAudioCompletionEvent|OverflowEvent|PageTransitionEvent|PointerEvent|PopStateEvent|PositionError|ProgressEvent|RTCDTMFToneChangeEvent|RTCDataChannelEvent|RTCIceCandidateEvent|ResourceProgressEvent|SQLError|SVGAnimatedNumberList|SVGZoomEvent|SecurityPolicyViolationEvent|SpeechInputEvent|SpeechRecognitionError|SpeechRecognitionEvent|SpeechSynthesisEvent|StorageEvent|TextEvent|TouchEvent|TrackEvent|TransitionEvent|UIEvent|WebGLContextEvent|WebKitAnimationEvent|WebKitTransitionEvent|WheelEvent|XMLHttpRequestProgressEvent", $.Interceptor);
 
-$.defineNativeMethods("HTMLAreaElement|HTMLAudioElement|HTMLBRElement|HTMLBaseElement|HTMLBodyElement|HTMLButtonElement|HTMLCanvasElement|HTMLContentElement|HTMLDListElement|HTMLDataListElement|HTMLDetailsElement|HTMLDialogElement|HTMLDivElement|HTMLEmbedElement|HTMLFieldSetElement|HTMLHRElement|HTMLHeadElement|HTMLHeadingElement|HTMLHtmlElement|HTMLIFrameElement|HTMLImageElement|HTMLInputElement|HTMLKeygenElement|HTMLLIElement|HTMLLabelElement|HTMLLegendElement|HTMLLinkElement|HTMLMapElement|HTMLMediaElement|HTMLMenuElement|HTMLMetaElement|HTMLMeterElement|HTMLModElement|HTMLOListElement|HTMLObjectElement|HTMLOptGroupElement|HTMLOptionElement|HTMLOutputElement|HTMLParagraphElement|HTMLParamElement|HTMLPreElement|HTMLProgressElement|HTMLQuoteElement|HTMLScriptElement|HTMLShadowElement|HTMLSourceElement|HTMLSpanElement|HTMLStyleElement|HTMLTableCaptionElement|HTMLTableCellElement|HTMLTableColElement|HTMLTableDataCellElement|HTMLTableElement|HTMLTableHeaderCellElement|HTMLTableRowElement|HTMLTableSectionElement|HTMLTemplateElement|HTMLTextAreaElement|HTMLTitleElement|HTMLTrackElement|HTMLUListElement|HTMLUnknownElement|HTMLVideoElement", $.HtmlElement);
+$.defineNativeMethods("HTMLAreaElement|HTMLAudioElement|HTMLBRElement|HTMLBaseElement|HTMLBodyElement|HTMLCanvasElement|HTMLContentElement|HTMLDListElement|HTMLDataListElement|HTMLDetailsElement|HTMLDialogElement|HTMLDivElement|HTMLEmbedElement|HTMLFieldSetElement|HTMLHRElement|HTMLHeadElement|HTMLHeadingElement|HTMLHtmlElement|HTMLIFrameElement|HTMLImageElement|HTMLKeygenElement|HTMLLabelElement|HTMLLegendElement|HTMLLinkElement|HTMLMapElement|HTMLMediaElement|HTMLMenuElement|HTMLMetaElement|HTMLModElement|HTMLOListElement|HTMLObjectElement|HTMLOptGroupElement|HTMLParagraphElement|HTMLPreElement|HTMLQuoteElement|HTMLScriptElement|HTMLShadowElement|HTMLSourceElement|HTMLSpanElement|HTMLStyleElement|HTMLTableCaptionElement|HTMLTableCellElement|HTMLTableColElement|HTMLTableDataCellElement|HTMLTableElement|HTMLTableHeaderCellElement|HTMLTableRowElement|HTMLTableSectionElement|HTMLTemplateElement|HTMLTitleElement|HTMLTrackElement|HTMLUListElement|HTMLUnknownElement|HTMLVideoElement", $.HtmlElement);
 
 $.defineNativeMethodsNonleaf("HTMLElement", $.HtmlElement);
 
 $.defineNativeMethods("HTMLAnchorElement", $.AnchorElement);
+
+$.defineNativeMethods("HTMLButtonElement", $.ButtonElement);
 
 $.defineNativeMethods("DOMException", $.DomException);
 
@@ -4645,11 +5084,27 @@ $.defineNativeMethodsNonleaf("EventTarget", $.EventTarget);
 
 $.defineNativeMethods("HTMLFormElement", $.FormElement);
 
+$.defineNativeMethods("HTMLInputElement", $.InputElement);
+
+$.defineNativeMethods("HTMLLIElement", $.LIElement);
+
+$.defineNativeMethods("HTMLMeterElement", $.MeterElement);
+
 $.defineNativeMethods("Document|HTMLDocument", $.Node);
 
 $.defineNativeMethodsNonleaf("Node", $.Node);
 
+$.defineNativeMethods("HTMLOptionElement", $.OptionElement);
+
+$.defineNativeMethods("HTMLOutputElement", $.OutputElement);
+
+$.defineNativeMethods("HTMLParamElement", $.ParamElement);
+
+$.defineNativeMethods("HTMLProgressElement", $.ProgressElement);
+
 $.defineNativeMethods("HTMLSelectElement", $.SelectElement);
+
+$.defineNativeMethods("HTMLTextAreaElement", $.TextAreaElement);
 
 $.defineNativeMethods("DOMWindow|Window", $.Window);
 
